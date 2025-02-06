@@ -198,7 +198,7 @@ ul#shoppingList{
 }
 
 /* FOOTER */
-footer#alert{
+footer{
   position: fixed;
   bottom: 2rem;
   left: 50%;
