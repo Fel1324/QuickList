@@ -6,7 +6,7 @@ const closeMessage = document.querySelector("#closeAlert");
 let itemId = 1;
 
 newItemInput.addEventListener("input", () => {
-  const hasNumberRegex = /\d+/g;
+  const hasNumberRegex = /[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g;
   newItemInput.value = newItemInput.value.replace(hasNumberRegex, "");
 });
 
