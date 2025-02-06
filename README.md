@@ -1,4 +1,6 @@
-<h1 align="center">QuickList 🛍️</h1>
+<h1 align="center">
+  <img src="./assets/logo.svg" alt="logo QuickList">
+</h1>
 
 ![preview](./.github/preview.png)
 
