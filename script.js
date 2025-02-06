@@ -33,6 +33,7 @@ function createNewItem(id, inputValue){
     </button>
   `;
   newItem.classList.add("shoppingItem");
+  newItem.id = id;
 
   shoppingList.append(newItem);
 }
