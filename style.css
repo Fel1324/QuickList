@@ -132,7 +132,7 @@ form{
 }
 
 ul#shoppingList{
-  margin-bottom: calc(2.25rem + 2.75rem);
+  margin-bottom: 5rem;
   list-style: none;
   max-height: 16.5rem;
   overflow: auto;
@@ -233,10 +233,6 @@ footer{
       font: var(--label);
     }
   }
-}
-
-.show-alert{
-  display: flex;
 }
 
 /* DESKTOP ADAPTATION */

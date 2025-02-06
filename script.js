@@ -4,6 +4,7 @@ const shoppingList = document.querySelector("#shoppingList");
 const message = document.querySelector("#alert");
 const closeMessage = document.querySelector("#closeAlert");
 let itemId = 1;
+let timeoutId;
 
 newItemInput.addEventListener("input", () => {
   const hasNumberRegex = /[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g;
@@ -51,15 +52,20 @@ function createNewItem(id, inputValue){
 }
 
 function deleteItem(id){
+  // VERIFICA SE EXISTE UM SETTIMEOUT, SE EXISTIR APAGA E DEPOIS INICIA OUTRO
+  if(timeoutId){
+    clearTimeout(timeoutId);
+  }
+
   document.getElementById(id).remove();
 
-  message.classList.add("show-alert");
+  message.style.display = "flex";
 
-  setTimeout(() => {
-    message.classList.remove("show-alert");
+  timeoutId = setTimeout(() => {
+    message.style.display = "none";
   }, 2500);
 }
 
 closeMessage.addEventListener("click", () => {
-  message.classList.remove("show-alert");
+  message.style.display = "none";
 });
