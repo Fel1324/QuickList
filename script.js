@@ -76,8 +76,11 @@ function createNewItem(id, inputValue, inputChecked){
 
 function onChecked(id, checked){
   const idx = list.findIndex(item => item.id === id);
-  list[idx].checked = checked;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  
+  if(idx !== -1){
+    list[idx].checked = checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
 }
 
 function deleteItem(id){
