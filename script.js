@@ -3,8 +3,23 @@ const newItemInput = document.querySelector("#newItemInput");
 const shoppingList = document.querySelector("#shoppingList");
 const message = document.querySelector("#alert");
 const closeMessage = document.querySelector("#closeAlert");
+
+let list = [];
+const STORAGE_KEY = "shoppingList";
+
 let itemId = 1;
 let timeoutId;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const storageList = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+  if(storageList){
+    storageList.forEach(item => {
+      itemId = item.id + 1;
+      createNewItem(item.id, item.name);
+    });
+  }
+});
 
 formList.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -44,6 +59,14 @@ function createNewItem(id, inputValue){
   // ADICIONA BUTTON NA LI E LI NA UL.
   newItem.appendChild(btnItem);
   shoppingList.append(newItem);
+
+  list.push({
+    id,
+    name: inputValue,
+    checked: false,
+  });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
 function deleteItem(id){
@@ -53,6 +76,10 @@ function deleteItem(id){
   }
 
   document.getElementById(id).remove();
+
+  const newList = list.filter(item => item.id !== id);
+  list = newList;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 
   message.style.display = "flex";
 
