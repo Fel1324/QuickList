@@ -14,9 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const storageList = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if(storageList){
+    console.log(storageList);
+    
     storageList.forEach(item => {
       itemId = item.id + 1;
-      createNewItem(item.id, item.name);
+      createNewItem(item.id, item.name, item.checked);
     });
   }
 });
@@ -25,7 +27,7 @@ formList.addEventListener("submit", (event) => {
   event.preventDefault();
 
   if(newItemInput.value !== ""){
-    createNewItem(itemId, newItemInput.value);
+    createNewItem(itemId, newItemInput.value, false);
     itemId += 1;
 
     newItemInput.value = "";
@@ -36,12 +38,12 @@ formList.addEventListener("submit", (event) => {
   }
 });
 
-function createNewItem(id, inputValue){
+function createNewItem(id, inputValue, inputChecked){
   // CRIA ELEMENTO LI, ADICIONA CONTEÚDO, ATRIBUE CLASSE E ID.
   let newItem = document.createElement("li");
   newItem.innerHTML += `
     <div>
-      <input type="checkbox" name="checkboxItem" id=${"checkboxItem" + id}>
+      <input type="checkbox" name="checkboxItem" id=${"checkboxItem" + id} ${inputChecked ? "checked" : ""}>
       <label for=${"checkboxItem" + id}>${inputValue}</label>
     </div>
   `;
@@ -63,9 +65,18 @@ function createNewItem(id, inputValue){
   list.push({
     id,
     name: inputValue,
-    checked: false,
+    checked: inputChecked,
   });
 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+
+  const checkbox = newItem.children[0].children[0];
+  checkbox.addEventListener("change", (e) => onChecked(id, e.target.checked))
+}
+
+function onChecked(id, checked){
+  const idx = list.findIndex(item => item.id === id);
+  list[idx].checked = checked;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
