@@ -13,9 +13,7 @@ let timeoutId;
 document.addEventListener("DOMContentLoaded", () => {
   const storageList = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-  if(storageList){
-    console.log(storageList);
-    
+  if(storageList){    
     storageList.forEach(item => {
       itemId = item.id + 1;
       createNewItem(item.id, item.name, item.checked);
@@ -39,7 +37,6 @@ formList.addEventListener("submit", (event) => {
 });
 
 function createNewItem(id, inputValue, inputChecked){
-  // CRIA ELEMENTO LI, ADICIONA CONTEÚDO, ATRIBUE CLASSE E ID.
   let newItem = document.createElement("li");
   newItem.innerHTML += `
     <div>
@@ -50,7 +47,6 @@ function createNewItem(id, inputValue, inputChecked){
   newItem.classList.add("shoppingItem");
   newItem.id = id;
 
-  // CRIA ELEMENTO  BUTTON, ADICIONA CONTEÚDO, ATRIBUE ARIA-LABEL E FUNÇÃO DE DELETAR.
   let btnItem = document.createElement("button");
   btnItem.innerHTML += `
     <img src="./assets/icons/delete.svg" alt="">
@@ -58,7 +54,6 @@ function createNewItem(id, inputValue, inputChecked){
   btnItem.setAttribute("aria-label", "Deletar item");
   btnItem.onclick = () => deleteItem(id);
 
-  // ADICIONA BUTTON NA LI E LI NA UL.
   newItem.appendChild(btnItem);
   shoppingList.append(newItem);
 
@@ -71,7 +66,7 @@ function createNewItem(id, inputValue, inputChecked){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 
   const checkbox = newItem.children[0].children[0];
-  checkbox.addEventListener("change", (e) => onChecked(id, e.target.checked))
+  checkbox.addEventListener("change", (e) => onChecked(id, e.target.checked));
 }
 
 function onChecked(id, checked){
@@ -84,7 +79,6 @@ function onChecked(id, checked){
 }
 
 function deleteItem(id){
-  // VERIFICA SE EXISTE UM SETTIMEOUT, SE EXISTIR APAGA E DEPOIS INICIA OUTRO
   if(timeoutId){
     clearTimeout(timeoutId);
   }
